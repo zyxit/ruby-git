@@ -117,9 +117,8 @@ module Git
       # break up @diff_full
       def process_full_diff
         final = {}
-        current_file = nil
-        
-        @full_diff.encode('UTF-8', :invalid => :replace).split("\n").each do |line|
+        current_file = nil        
+        @full_diff.force_encoding('UTF-8').split("\n").each do |line|
           if m = /diff --git a\/(.*?) b\/(.*?)/.match(line)
             current_file = m[1]
             final[current_file] = {:patch => line, :path => current_file, 
